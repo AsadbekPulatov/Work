@@ -69,10 +69,16 @@
 
     <ul class="menu-inner py-1">
         <!-- Dashboard -->
-        <li class="menu-item active">
-            <a href="index.html" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">Dashboard</div>
+        <li class="menu-item {{  request()->routeIs('admin.universities.index') ? 'active' : '' }}">
+            <a href="{{ route('admin.universities.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-building"></i>
+                <div data-i18n="Analytics">Universitet</div>
+            </a>
+        </li>
+        <li class="menu-item {{  request()->routeIs('admin.facultets.index') ? 'active' : '' }}">
+            <a href="{{ route('admin.facultets.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-building"></i>
+                <div data-i18n="Analytics">Fakultet</div>
             </a>
         </li>
     </ul>

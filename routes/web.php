@@ -31,11 +31,9 @@ Route::prefix('admin')->name('admin.')->middleware(['web', 'auth'])->group(funct
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::resource('users', App\Http\Controllers\UserController::class);
     Route::get('user/status/{user}', [\App\Http\Controllers\UserController::class, 'status'])->name('user.status')->middleware('super_admin');
-    Route::resource('students', App\Http\Controllers\StudentController::class)->middleware('adminuser');
-    Route::resource('replace', \App\Http\Controllers\ReplaceController::class)->middleware('adminuser');
-    Route::resource('rooms', App\Http\Controllers\RoomController::class)->middleware('adminuser');
-    Route::resource('floors', App\Http\Controllers\FloorController::class)->middleware('adminuser');
-    Route::resource('binos', App\Http\Controllers\BinoController::class)->middleware('admin');
-    Route::resource('facultets', App\Http\Controllers\FacultetController::class)->middleware('admin');
-    Route::resource('attendances', AttendanceController::class)->middleware('adminuser');
+    Route::resource('students', App\Http\Controllers\StudentController::class);
+    Route::resource('rooms', App\Http\Controllers\RoomController::class);
+    Route::resource('binos', App\Http\Controllers\BinoController::class);
+    Route::resource('universities', \App\Http\Controllers\UnivertyController::class);
+    Route::resource('facultets', App\Http\Controllers\FacultetController::class);
 });

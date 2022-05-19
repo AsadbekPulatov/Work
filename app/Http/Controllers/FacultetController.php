@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\FakultetRequest;
 use App\Models\Fakultet;
 use App\Models\StudentInfo;
+use App\Models\University;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,7 +24,7 @@ class FacultetController extends Controller
     public function index()
     {
         $id = Auth::user()->id;
-        $posts=Fakultet::where('user_id', $id)->paginate(5);
+        $posts=Fakultet::orderby('id')->paginate(10);
         return view('admin.facultets.index',[
             'posts'=>$posts
         ]);
@@ -37,9 +38,11 @@ class FacultetController extends Controller
     public function create()
     {
         $id = Auth::user()->id;
-        $facultets = Fakultet::where('user_id', $id)->get();
+        $universities = University::all();
+        $facultets = Fakultet::all();
         return view('admin.facultets.create',[
-            'facultets' => $facultets
+            'facultets' => $facultets,
+            'universities' => $universities,
         ]);
     }
 
@@ -54,7 +57,7 @@ class FacultetController extends Controller
         $id = Auth::user()->id;
         $data=new Fakultet();
         $data->name=$request->name;
-        $data->user_id=$id;
+        $data->university_id=$request->university_id;
         $data->save();
         return redirect(route('admin.facultets.index'))->with('success', 'Fakultet yaratildi.');
     }

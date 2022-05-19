@@ -19,20 +19,19 @@
                     <table class="table table-bordered">
                         <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Nomi</th>
-                            <th>Amal</th>
-
+                            <th scope="col">#</th>
+                            <th scope="col">Universitet</th>
+                            <th scope="col">Nomi</th>
+                            <th scope="col">Amal</th>
                          </tr>
                         </thead>
                         <tbody>
                         @foreach($posts as $key => $post)
                             <tr>
-                                <td  class="col-2">{{$key+1}}</td>
-                                <td class="col-8">{{$post->name}}</td>
-
-
-                                <td class="col-2">
+                                <td  class="col-1">{{$key+1}}</td>
+                                <td class="col-4">{{$post->university->name}}</td>
+                                <td class="col-4">{{$post->name}}</td>
+                                <td class="col-3">
                                     <form action="{{ route('admin.facultets.destroy',$post->id) }}" method="POST">
                                         <a class="btn btn-warning btn-sm" href="{{ route('admin.facultets.edit',$post->id) }}">
                                     <span class="btn-label">

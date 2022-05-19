@@ -8,27 +8,22 @@
                 </div>
                 <hr>
                 <div class="card-body">
-
-{{--                    @if ($errors->any())--}}
-{{--                        <div class="alert alert-danger">--}}
-{{--                            <strong>Whoops!</strong> <br><br>--}}
-{{--                            <ul>--}}
-{{--                                @foreach ($errors->all() as $error)--}}
-{{--                                    <li>{{ $error }}</li>--}}
-{{--                                @endforeach--}}
-{{--                            </ul>--}}
-{{--                        </div>--}}
-{{--                    @endif--}}
-
-
                     <form action="{{route('admin.facultets.store')}}" method="POST" accept-charset="UTF-8" id="myForm">
                         @csrf
                         <div class="form-group">
-                            <label for="header_ru">Fakultet nomi</label>
-                            <input type="text" name="name" class="form-control" id="header_ru" placeholder="Fakultet">
+                            <label for="header_ru">Universitet nomi</label>
+                            <select name="university_id" id="header_ru" class="form-select form-control">
+                                <option value="">Universitetni tanlang</option>
+                                @foreach($universities as $university)
+                                    <option value="{{ $university->id }}">{{ $university->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
 
-
+                        <div class="form-group">
+                            <label for="header_ru">Fakultet nomi</label>
+                            <input type="text" name="name" class="form-control" id="header_ru" placeholder="Fakultet nomi">
+                        </div>
                         <button type="submit" id="alert" class="btn btn-primary">Saqlash</button>
                         <input type="reset" class="btn btn-danger" value="Tozalash">
                     </form>
