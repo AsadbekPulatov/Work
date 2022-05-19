@@ -12,7 +12,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="header_ru">Universitet nomi</label>
-                            <select name="university_id" id="header_ru" class="form-select form-control">
+                            <select name="university_id" id="university_id" class="form-select form-control">
                                 <option value="">Universitetni tanlang</option>
                                 @foreach($universities as $university)
                                     <option value="{{ $university->id }}">{{ $university->name }}</option>
@@ -22,8 +22,9 @@
 
                         <div class="form-group">
                             <label for="header_ru">Fakultet nomi</label>
-                            <input type="text" name="name" class="form-control" id="header_ru" placeholder="Fakultet nomi">
+                            <input type="text" name="name" class="form-control" id="name" placeholder="Fakultet nomi">
                         </div>
+
                         <button type="submit" id="alert" class="btn btn-primary">Saqlash</button>
                         <input type="reset" class="btn btn-danger" value="Tozalash">
                     </form>
@@ -41,21 +42,23 @@
         $(document).on('click', '#alert', function (e) {
             e.preventDefault();
             let cnt = 0;
-            var value = $('#header_ru').val();
+            var value = $('#name').val();
+            var id = $('#university_id').val();
             if (facultets.length == 0) $('#myForm').submit();
             for (let i = 0; i < facultets.length; i++) {
-                if (value == facultets[i].name) {
+                if (value == facultets[i].name && id == facultets[i].university_id) {
                     cnt++;
+                    break;
                 }
             }
             if (cnt > 0) {
                 swal({
                     icon: 'error',
                     title: 'Xatolik',
-                    text: 'Bu fakultet oldin kiritilgan',
+                    text: 'Fakultet oldin kiritilgan',
                     confirmButtonText: 'Continue',
                 })
-                $('#header_ru').val('');
+                $('#name').val('');
             } else
                 $('#myForm').submit();
         });

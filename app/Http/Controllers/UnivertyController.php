@@ -28,8 +28,10 @@ class UnivertyController extends Controller
      */
     public function create()
     {
-        //
-        return view('admin.university.create');
+        $universities = University::all();
+        return view('admin.university.create', [
+            'universities' => $universities,
+        ]);
     }
 
     /**
@@ -63,10 +65,11 @@ class UnivertyController extends Controller
      */
     public function edit(University $university)
     {
+        $universities = University::all();
         return view('admin.university.edit',[
-            'university'=>$university
+            'university'=>$university,
+            'universities' => $universities,
         ]);
-
     }
 
     /**

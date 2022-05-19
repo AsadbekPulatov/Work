@@ -16,21 +16,21 @@
 
                         <div class="form-group">
                             <label for="number"> Universititet Nomi </label>
-                            <input type="text" name="name" class="form-control"  placeholder="" id="number" value="{{$university->name}}">
+                            <input type="text" name="name" class="form-control"  placeholder="" id="name" value="{{$university->name}}">
                         </div>
 
 
                         <div class="form-group">
                             <label for="header_ru"> Universitet Manzili </label>
-                            <input type="text" name="address" class="form-control" placeholder="" value="{{$university->address}}">
+                            <input type="text" name="address" class="form-control" placeholder="" id="address" value="{{$university->address}}">
                         </div>
                         <div class="form-group">
                             <label for="header_ru"> Telefon Nomeri </label>
-                            <input type="text" name="phone" class="form-control" placeholder="" value="{{$university->phone}}">
+                            <input type="text" name="phone" class="form-control" placeholder="" id="phone" value="{{$university->phone}}">
                         </div>
                         <div class="form-group">
                             <label for="header_ru"> Email Manzili </label>
-                            <input type="text" name="email" class="form-control" placeholder="" value="{{$university->email}}">
+                            <input type="text" name="email" class="form-control" placeholder="" id="email" value="{{$university->email}}">
                         </div>
 
 
@@ -46,4 +46,56 @@
 
 
 
+@endsection
+
+@section('script')
+    <script>
+        let universities = @json($universities);
+        // console.log(universities);
+        $(document).on('click', '#alert', function (e) {
+            e.preventDefault();
+            let cnt = 0;
+            var name = $('#name').val();
+            var email = $('#email').val();
+            if (universities.length == 0) $('#myForm').submit();
+            for (let i = 0; i < universities.length; i++) {
+                if ((name == universities[i].name && name != @json($university->name)) || (email == universities[i].email && email != @json($university->email))) {
+                    cnt++;
+                    break;
+                }
+            }
+            if (cnt > 0) {
+                swal({
+                    icon: 'error',
+                    title: 'Xatolik',
+                    text: 'Universitet oldin kiritilgan',
+                    confirmButtonText: 'Continue',
+                })
+                $('#header_ru').val(@json($university->name));
+                $('#address').val(@json($university->address));
+                $('#phone').val(@json($university->phone));
+                $('#email').val(@json($university->email));
+            } else $('#myForm').submit();
+        });
+    </script>
+    <script>
+        let errors = @json($errors->all());
+        @if($errors->any())
+        console.log(errors);
+
+        let msg = '';
+        for (let i = 0; i < errors.length; i++) {
+            msg += (i + 1) + '-xatolik ' + errors[i] + '\n';
+        }
+        console.log(msg);
+        if (msg != '') {
+            swal({
+                icon: 'error',
+                title: 'Xatolik',
+                text: msg,
+                confirmButtonText: 'Continue',
+            })
+        }
+        @endif
+    </script>
 @endsection

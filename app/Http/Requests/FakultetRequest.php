@@ -26,6 +26,7 @@ class FakultetRequest extends FormRequest
 
         return [
             'name' => 'required',
+            'university_id' => 'required',
         ];
     }
 }

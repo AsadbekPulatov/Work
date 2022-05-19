@@ -26,7 +26,7 @@
                         @method('PUT')
                         <div class="form-group">
                             <label for="description_ru">Fakultet</label>
-                            <input type="text" name="name" class="form-control" id="header_ru" placeholder="Fakultet"
+                            <input type="text" name="name" class="form-control" id="name" placeholder="Fakultet"
                                    value="{{$post->name}}">
                         </div>
                         <button type="submit" id="alert" class="btn btn-primary">Saqlash</button>
@@ -46,18 +46,19 @@
         $(document).on('click', '#alert', function (e) {
             e.preventDefault();
             let cnt = 0;
-            var value = $('#header_ru').val();
+            var value = $('#name').val();
             if (facultets.length == 0) $('#myForm').submit();
             for (let i = 0; i < facultets.length; i++) {
-                if (value == facultets[i].name && value != @json($post->name)) {
+                if (value == facultets[i].name && value != @json($post->name) && @json($post->university_id) == facultets[i].university_id) {
                     cnt++;
+                    break;
                 }
             }
             if (cnt > 0) {
                 swal({
                     icon: 'error',
                     title: 'Xatolik',
-                    text: 'Bu fakultet oldin kiritilgan',
+                    text: 'Fakultet oldin kiritilgan',
                     confirmButtonText: 'Continue',
                 })
                 $('#header_ru').val(@json($post->name));

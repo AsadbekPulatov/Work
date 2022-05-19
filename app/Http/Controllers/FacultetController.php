@@ -82,8 +82,9 @@ class FacultetController extends Controller
     public function edit($id)
     {
         $auth_id = Auth::user()->id;
-        $facultets = Fakultet::where('user_id', $auth_id)->get();
         $post=Fakultet::find($id);
+        $facultets = Fakultet::where('university_id', $post->university_id)->get();
+
         return view('admin.facultets.edit',[
             'post'=>$post,
             'facultets' => $facultets

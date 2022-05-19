@@ -71,7 +71,7 @@
         <!-- Dashboard -->
         <li class="menu-item {{  request()->routeIs('admin.universities.index') ? 'active' : '' }}">
             <a href="{{ route('admin.universities.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-building"></i>
+                <i class="menu-icon tf-icons fa fa-university"></i>
                 <div data-i18n="Analytics">Universitet</div>
             </a>
         </li>
