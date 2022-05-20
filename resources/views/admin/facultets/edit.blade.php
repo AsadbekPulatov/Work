@@ -8,26 +8,13 @@
                 </div>
                 <hr>
                 <div class="card-body">
-
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
-
                     <form action="{{route('admin.facultets.update',$post->id)}}" method="POST" id="myForm">
                         @csrf
                         @method('PUT')
                         <div class="form-group">
                             <label for="description_ru">Fakultet</label>
                             <input type="text" name="name" class="form-control" id="name" placeholder="Fakultet"
-                                   value="{{$post->name}}">
+                                   value="{{$post->name}}" required>
                         </div>
                         <button type="submit" id="alert" class="btn btn-primary">Saqlash</button>
                         <input type="reset" class="btn btn-danger" value="Tozalash">
@@ -43,6 +30,7 @@
 @section('script')
     <script>
         let facultets = @json($facultets);
+        // $('#myForm').validate();
         $(document).on('click', '#alert', function (e) {
             e.preventDefault();
             let cnt = 0;
@@ -64,5 +52,28 @@
                 $('#header_ru').val(@json($post->name));
             } else $('#myForm').submit();
         });
+    </script>
+    <script>
+
+        let errors = @json($errors->all());
+        @if($errors->any())
+        console.log(errors);
+
+        let msg = '';
+        for (let i = 0; i < errors.length; i++) {
+            msg += (i + 1) + '-xatolik ' + errors[i] + '\n';
+        }
+        console.log(msg);
+        if (msg != '') {
+            swal({
+                icon: 'error',
+                title: 'Xatolik',
+                text: msg,
+                confirmButtonText: 'Continue',
+            })
+        }
+        @endif
+
+
     </script>
 @endsection

@@ -16,21 +16,20 @@
 
                         <div class="form-group">
                             <label for="number"> Universititet Nomi </label>
-                            <input type="text" name="name" class="form-control"  placeholder="" id="name" value="{{$university->name}}">
+                            <input type="text" name="name" class="form-control"  placeholder="" id="name" value="{{$university->name}}" required>
                         </div>
-
 
                         <div class="form-group">
                             <label for="header_ru"> Universitet Manzili </label>
-                            <input type="text" name="address" class="form-control" placeholder="" id="address" value="{{$university->address}}">
+                            <input type="text" name="address" class="form-control" placeholder="" id="address" value="{{$university->address}}" required>
                         </div>
                         <div class="form-group">
                             <label for="header_ru"> Telefon Nomeri </label>
-                            <input type="text" name="phone" class="form-control" placeholder="" id="phone" value="{{$university->phone}}">
+                            <input type="text" name="phone" class="form-control" placeholder="" id="phone" value="{{$university->phone}}" required>
                         </div>
                         <div class="form-group">
                             <label for="header_ru"> Email Manzili </label>
-                            <input type="text" name="email" class="form-control" placeholder="" id="email" value="{{$university->email}}">
+                            <input type="text" name="email" class="form-control" placeholder="" id="email" value="{{$university->email}}" required>
                         </div>
 
 
@@ -52,6 +51,7 @@
     <script>
         let universities = @json($universities);
         // console.log(universities);
+        // $('#myForm').validate();
         $(document).on('click', '#alert', function (e) {
             e.preventDefault();
             let cnt = 0;
@@ -79,6 +79,7 @@
         });
     </script>
     <script>
+
         let errors = @json($errors->all());
         @if($errors->any())
         console.log(errors);
@@ -97,5 +98,7 @@
             })
         }
         @endif
+
+
     </script>
 @endsection

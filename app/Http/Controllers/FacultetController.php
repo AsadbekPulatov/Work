@@ -100,9 +100,12 @@ class FacultetController extends Controller
      */
     public function update(Request $request,$id)
     {
+        $data = $request->validate([
+           'name' => 'required',
+        ]);
         $post=Fakultet::find($id);
         $post->id=$id;
-        $post->name=$request->name;
+        $post->name=$data->name;
         $post->save();
         return redirect()->route('admin.facultets.index')->with('success', 'Fakultet yaratildi.');
     }

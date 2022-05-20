@@ -12,7 +12,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="header_ru">Universitet nomi</label>
-                            <select name="university_id" id="university_id" class="form-select form-control">
+                            <select name="university_id" id="university_id" class="form-select form-control" required>
                                 <option value="">Universitetni tanlang</option>
                                 @foreach($universities as $university)
                                     <option value="{{ $university->id }}">{{ $university->name }}</option>
@@ -22,7 +22,7 @@
 
                         <div class="form-group">
                             <label for="header_ru">Fakultet nomi</label>
-                            <input type="text" name="name" class="form-control" id="name" placeholder="Fakultet nomi">
+                            <input type="text" name="name" class="form-control" id="name" placeholder="Fakultet nomi" required>
                         </div>
 
                         <button type="submit" id="alert" class="btn btn-primary">Saqlash</button>
@@ -33,12 +33,11 @@
         </div>
     </div>
 
-
-
 @endsection
 @section('script')
     <script>
         let facultets = @json($facultets);
+        // $('#myForm').validate();
         $(document).on('click', '#alert', function (e) {
             e.preventDefault();
             let cnt = 0;
@@ -59,8 +58,7 @@
                     confirmButtonText: 'Continue',
                 })
                 $('#name').val('');
-            } else
-                $('#myForm').submit();
+            } else $('#myForm').submit();
         });
     </script>
     <script>

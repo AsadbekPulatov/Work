@@ -12,4 +12,7 @@ class Fakultet extends Model
     public function university(){
         return $this->belongsTo(University::class);
     }
+    public function groups(){
+        return $this->hasMany(Group::class);
+    }
 }

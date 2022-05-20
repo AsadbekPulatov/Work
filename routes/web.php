@@ -32,8 +32,7 @@ Route::prefix('admin')->name('admin.')->middleware(['web', 'auth'])->group(funct
     Route::resource('users', App\Http\Controllers\UserController::class);
     Route::get('user/status/{user}', [\App\Http\Controllers\UserController::class, 'status'])->name('user.status')->middleware('super_admin');
     Route::resource('students', App\Http\Controllers\StudentController::class);
-    Route::resource('rooms', App\Http\Controllers\RoomController::class);
-    Route::resource('binos', App\Http\Controllers\BinoController::class);
     Route::resource('universities', \App\Http\Controllers\UnivertyController::class);
     Route::resource('facultets', App\Http\Controllers\FacultetController::class);
+    Route::resource('groups', \App\Http\Controllers\GroupController::class);
 });

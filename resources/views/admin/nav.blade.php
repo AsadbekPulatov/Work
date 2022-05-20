@@ -73,7 +73,7 @@
 {{--                        </a>--}}
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="w-75" style="background-color: transparent; border: none">
                                 <i class="bx bx-power-off me-2"></i>Chiqish
                             </button>
                         </form>

@@ -1,7 +1,7 @@
 
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
-        <a href="index.html" class="app-brand-link">
+        <a href="{{ route('admin.home') }}" class="app-brand-link">
               <span class="app-brand-logo demo">
                 <svg
                     width="25"
@@ -57,7 +57,7 @@
                   </g>
                 </svg>
               </span>
-            <span class="app-brand-text demo menu-text fw-bolder ms-2">Sneat</span>
+            <span class="app-brand-text demo menu-text fw-bolder ms-2">Admin Panel</span>
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -71,14 +71,20 @@
         <!-- Dashboard -->
         <li class="menu-item {{  request()->routeIs('admin.universities.index') ? 'active' : '' }}">
             <a href="{{ route('admin.universities.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons fa fa-university"></i>
+                <i class="menu-icon tf-icons fas fa-university"></i>
                 <div data-i18n="Analytics">Universitet</div>
             </a>
         </li>
         <li class="menu-item {{  request()->routeIs('admin.facultets.index') ? 'active' : '' }}">
             <a href="{{ route('admin.facultets.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-building"></i>
+                <i class="menu-icon tf-icons fas fa-building"></i>
                 <div data-i18n="Analytics">Fakultet</div>
+            </a>
+        </li>
+        <li class="menu-item {{  request()->routeIs('admin.groups.index') ? 'active' : '' }}">
+            <a href="{{ route('admin.groups.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons fas fa-layer-group"></i>
+                <div data-i18n="Analytics">Guruh</div>
             </a>
         </li>
     </ul>

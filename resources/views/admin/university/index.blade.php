@@ -16,7 +16,7 @@
                 </div>
                 <hr>
                 <div class="card-body">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered text-uppercase">
                         <thead>
                         <tr>
                             <th scope="col">#</th>
