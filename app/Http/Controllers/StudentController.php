@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Bino;
 use App\Models\Fakultet;
 use App\Models\Floor;
+use App\Models\Group;
 use App\Models\Room;
 use App\Models\Student;
+use App\Models\University;
 use App\Models\User;
 use App\Rules\PassportNumber;
 use App\Rules\PhoneNumber;
@@ -19,20 +21,21 @@ class StudentController
 
     public function index()
     {
-        $role = Auth::user()->role;
-        $id = Auth::user()->id;
-        if ($role == 'super_admin')
-            $user = User::where('role', '!=', 'user')->get();
-        if ($role == 'admin')
-            $user = User::where('user_id', $id)->orwhere('id', $id)->get();
-        if ($role == 'user')
-            $user = User::where('id', $id)->get();
+        $user = User::where('role', 'student')->get();
+
         return view('admin.users.index2')->with('users', $user);
     }
 
     public function create()
     {
-        return view('admin.users.create2');
+        $universities = University::all();
+        $faculties = Fakultet::all();
+        $groups = Group::all();
+        return view('admin.users.create2', [
+            'universities' => $universities,
+            'faculties' => $faculties,
+            'groups' => $groups,
+        ]);
     }
     public function store(Request $request)
     {
@@ -41,7 +44,24 @@ class StudentController
     }
 
     public function edit($id)
-    {
+    {   $user=User::find($id);
+        $universities = University::all();
+        $faculties = Fakultet::all();
+        $groups = Group::all();
+        $current_group=Group::find($user->group_id);
+
+        $current_faculty=Fakultet::find($current_group->faculty_id);
+        $current_university=University::find($current_faculty->university_id);
+
+        return view('admin.users.edit2', [
+            'user'=>$user,
+            'universities' => $universities,
+            'faculties' => $faculties,
+            'groups' => $groups,
+            'current_group'=>$current_group,
+            'current_faculty'=>$current_faculty,
+            'current_university'=>$current_university
+        ]);
     }
 
     public function update(Request $request, $id)

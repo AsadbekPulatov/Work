@@ -24,12 +24,9 @@
                         <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Username</th>
+                            <th scope="col">Ism Familya</th>
                             <th scope="col">Email</th>
-                            <th scope="col">Roli</th>
-                            @if(\Illuminate\Support\Facades\Auth::user()->role == 'super_admin')
-                                <th scope="col">Status</th>
-                            @endif
+                            <th scope="col">Telefon raqami</th>
                             <th scope="col">Harakat</th>
                         </tr>
                         </thead>
@@ -37,29 +34,18 @@
                         @foreach($users as $key => $user)
                             <tr>
                                 <th scope="row" class="col-1">{{ $key+1 }}</th>
-                                <td>{{$user->name}}</td>
+                                <td>{{$user->user_infos->name}} {{$user->user_infos->surname}}</td>
                                 <td>{{$user->email}}</td>
-                                <td>{{$user->role}}</td>
-                                @if(\Illuminate\Support\Facades\Auth::user()->role == 'super_admin')
-                                    <td>
-                                        @if ($user->role != 'super_admin')
-                                            @if($user->status == 0)
-                                                <a href="{{ route('admin.user.status', ['user' => $user->id]) }}" class="btn btn-danger">Yoqish</a>
-                                            @else
-                                                <a href="{{ route('admin.user.status', ['user' => $user->id]) }}" class="btn btn-success">O'chirish</a>
-                                            @endif
-                                        @endif
-                                    </td>
-                                @endif
-                                <td class="col-2">
-                                    @if(\Illuminate\Support\Facades\Auth::id() == $user->id)
+                                <td>{{$user->user_infos->phone}}</td>
+                                <td class="">
+<div class="d-flex justify-content-center">
                                         <a class="btn btn-warning btn-sm"
-                                           href="{{ route('admin.users.edit',$user->id) }}">
+                                           href="{{ route('admin.students.edit',$user->id) }}">
                                             <span class="btn-label">
                                                 <i class="fa fa-pen"></i>
                                             </span>
                                         </a>
-                                    @else
+
                                         <form action="{{ route('admin.users.destroy',$user->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
@@ -69,7 +55,8 @@
                                                 </span>
                                             </button>
                                         </form>
-                                    @endif
+</div>
+
                                 </td>
                             </tr>
                         @endforeach

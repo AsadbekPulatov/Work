@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Models\Fakultet;
+use App\Models\Group;
+use App\Models\University;
 use App\Models\User;
 use App\Models\UserInfo;
 use App\Rules\PassportNumber;
@@ -70,7 +73,7 @@ class UserController extends Controller
         $user->info_id=$user_info->id;
 
         if($request->turi=='student'){
-            $user->group_id=11;
+            $user->group_id=$request->group_id;
 
         }
         $user->role=$request->turi;
@@ -78,7 +81,6 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         if ($role == 'super_admin') {
-            $user->role = 'user';
             $user->user_id = 1;
         }
         if ($role == 'user') {
@@ -86,9 +88,14 @@ class UserController extends Controller
         }
         $user->status=Auth::user()->status;
         $user->save();
+        if($request->turi=='student'){
+            return redirect()->route('admin.students.index')
+                ->with('success', 'Muvaffaqqiyatli yaratildi');
+        }else{
+            return redirect()->route('admin.users.index')
+                ->with('success', 'Muvaffaqqiyatli yaratildi');
+        }
 
-        return redirect()->route('admin.users.index')
-            ->with('success', 'Muvaffaqqiyatli yaratildi');
     }
 
     /**
@@ -109,11 +116,15 @@ class UserController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function edit(User $user)
-    {   $role=Auth::user()->role;
+
+    {
+        $role=Auth::user()->role;
         $id = Auth::user()->id;
         if ($user->id != $id && $role != 'super_admin')
             abort(403);
-        return view('admin.users.edit', ['user'=>$user]);
+        return view('admin.users.edit', [
+            'user'=>$user
+        ]);
     }
 
     /**
@@ -160,10 +171,17 @@ class UserController extends Controller
         $user->update([
             'info_id'=>$user_info->id,
             'email' => $request->email,
+            'group_id' => $request->group_id,
             'password' => Hash::make($request->password)
         ]);
-        return redirect()->route('admin.users.index')
-            ->with('success', 'Muvaffaqqiyatli yangilandi');
+
+        if($request->turi=='student'){
+            return redirect()->route('admin.students.index')
+                ->with('success', 'Muvaffaqqiyatli yangilandi');
+        }else{
+            return redirect()->route('admin.users.index')
+                ->with('success', 'Muvaffaqqiyatli yangilandi');
+        }
     }
 
     /**
