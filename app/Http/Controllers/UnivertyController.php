@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UniversityRequest;
+use App\Models\Fakultet;
+use App\Models\Group;
 use App\Models\University;
 use Illuminate\Http\Request;
 
@@ -93,6 +95,13 @@ class UnivertyController extends Controller
      */
     public function destroy(University $university)
     {
+        $id = $university->id;
+        $fakultets = Fakultet::where('university_id', $id)->get();
+        $f_id = [];
+        foreach ($fakultets as $value)
+            array_push($f_id, $value->id);
+        Group::WhereIn('faculty_id', $f_id)->delete();
+        $fakultets = Fakultet::where('university_id', $id)->delete();
         $university->delete();
         return redirect()->route('admin.universities.index')->with('success', 'deleted');
     }

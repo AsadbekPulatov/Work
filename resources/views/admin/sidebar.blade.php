@@ -99,5 +99,11 @@
                 <div data-i18n="Analytics">Talabalar</div>
             </a>
         </li>
+        <li class="menu-item {{  request()->routeIs('admin.works.index') ? 'active' : '' }}">
+            <a href="{{ route('admin.works.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons fas fa-folder"></i>
+                <div data-i18n="Analytics">Korxonalar</div>
+            </a>
+        </li>
     </ul>
 </aside>
