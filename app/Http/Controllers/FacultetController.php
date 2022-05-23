@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\FakultetRequest;
 use App\Models\Fakultet;
+use App\Models\Group;
 use App\Models\StudentInfo;
 use App\Models\University;
 use Illuminate\Http\Request;
@@ -119,6 +120,7 @@ class FacultetController extends Controller
     public function destroy($id)
     {
         $data=Fakultet::find($id);
+        Group::where('faculty_id', $id)->delete();
         $data->delete();
         return redirect(route('admin.facultets.index'))->with('success', 'Fakultet yaratildi.');
     }

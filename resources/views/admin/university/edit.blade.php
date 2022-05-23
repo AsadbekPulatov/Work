@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="row">
-                    <div class="col-10"><h1 class="card-title">Universitet Qo'shing</h1></div>
+                    <div class="col-10"><h1 class="card-title">Universitetni yangilash</h1></div>
                 </div>
                 <hr>
                 <div class="card-body">

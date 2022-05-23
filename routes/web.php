@@ -35,4 +35,5 @@ Route::prefix('admin')->name('admin.')->middleware(['web', 'auth'])->group(funct
     Route::resource('universities', \App\Http\Controllers\UnivertyController::class);
     Route::resource('facultets', App\Http\Controllers\FacultetController::class);
     Route::resource('groups', \App\Http\Controllers\GroupController::class);
+    Route::resource('works', \App\Http\Controllers\WorkController::class);
 });
