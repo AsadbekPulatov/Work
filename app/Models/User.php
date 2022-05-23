@@ -13,6 +13,11 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
+
+    public function user_infos(){
+
+        return $this->belongsTo(UserInfo::class,'info_id');
+    }
     /**
      * The attributes that are mass assignable.
      *

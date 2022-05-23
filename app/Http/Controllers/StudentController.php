@@ -19,103 +19,29 @@ class StudentController
 
     public function index()
     {
-        $id = $this->auth_id();
-        $post = Student::where('user_id', $id)->paginate(15);
-        return view('admin.students.index', ["posts" => $post]);
+        $role = Auth::user()->role;
+        $id = Auth::user()->id;
+        if ($role == 'super_admin')
+            $user = User::where('role', '!=', 'user')->get();
+        if ($role == 'admin')
+            $user = User::where('user_id', $id)->orwhere('id', $id)->get();
+        if ($role == 'user')
+            $user = User::where('id', $id)->get();
+        return view('admin.users.index2')->with('users', $user);
     }
 
     public function create()
     {
-        $id = $this->auth_id();
-        $floors = Floor::all();
-        $buildings = Bino::where('user_id', $id)->get();
-
-        $users_id = Room::whereColumn('busy', '<', 'count')->get();
-        $users_admin = User::where('user_id', $id)->get();
-        $users = [0];
-        $rooms = [];
-        array_push($users, $id);
-        if ($users_admin != NULL)
-            foreach ($users_admin as $key => $value)
-                $users[$key] = $value['id'];
-
-        foreach ($users_id as $key => $value) {
-            for ($j = 0; $j < count($users); $j++) {
-                if ($value->floor->bino->user_id == $users[$j]) {
-                    array_push($rooms, $value);
-                    break;
-                }
-            }
-        }
-
-
-//        $rooms = (object)$rooms;
-
-//        dd($rooms);
-
-//        $rooms = Room::whereColumn('busy', '<', 'count')->get();
-        $fak = Fakultet::where('user_id', $id)->get();
-
-        return view('admin.students.create', [
-            "rooms" => $rooms,
-            "fakultets" => $fak,
-            'buildings' => $buildings,
-            'floors' => $floors,
-        ]);
+        return view('admin.users.create2');
     }
     public function store(Request $request)
     {
-        $id = $this->auth_id();
-        $request = $request->validate([
-            "name" => 'required ',
-            "surname" => 'required ',
-            "f_s_name" => 'required ',
-            "address" => 'required ',
-            "phone" => ['required','unique:students', new PhoneNumber],
-            "passport" => ['required','unique:students', new PassportNumber],
-            "parent_name" => 'required ',
-            "parent_phone" => ['required', new PhoneNumber],
-            "room_id" => 'required',
-            "fak_id" => 'required'
-        ]);
 
-        $data = new Student();
-        $data->name = $request['name'];
-        $data->surname = $request['surname'];
-        $data->f_s_name = $request['f_s_name'];
-        $data->address = $request['address'];
-        $data->phone = $request['phone'];
-        $data->passport = $request['passport'];
-        $data->parent_name = $request['parent_name'];
-        $data->parent_phone = $request['parent_phone'];
-        $data->room_id = $request['room_id'];
-        $data->fak_id = $request['fak_id'];
-        $data->user_id = $id;
-        $data->save();
-        //busy++
-        $id = $request['room_id'];
-        $d = Room::find($id);
-        $d->busy += 1;
-        $d->save();
         return redirect(route('admin.students.index'))->with('success', 'Muvaffaqqiyatli yaratildi');
     }
 
     public function edit($id)
     {
-        $data = Student::find($id);
-        $room_old = Room::find($data->room_id);
-        $fak_old = Fakultet::find($data->fak_id);
-
-        $rooms = Room::whereColumn('busy', '<', 'count')->get();
-        $fak = Fakultet::all();
-
-        return view('admin.students.edit', [
-            "rooms" => $rooms,
-            "fakultets" => $fak,
-            "data" => $data,
-            "room_old" => $room_old,
-            "fak_old" => $fak_old
-        ]);
     }
 
     public function update(Request $request, $id)

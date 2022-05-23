@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
 use App\Models\User;
+use App\Models\UserInfo;
+use App\Rules\PassportNumber;
+use App\Rules\PhoneNumber;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -21,13 +24,14 @@ class UserController extends Controller
         $role = Auth::user()->role;
         $id = Auth::user()->id;
         if ($role == 'super_admin')
-            $user = User::where('role', '!=', 'user')->get();
-        if ($role == 'admin')
-            $user = User::where('user_id', $id)->orwhere('id', $id)->get();
+            $user = User::where('role', '!=', 'student')->get();
         if ($role == 'user')
-            $user = User::where('id', $id)->get();
+            $user = User::where('user_id', $id)->orwhere('id', $id)->get();
+
         return view('admin.users.index')->with('users', $user);
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -37,7 +41,7 @@ class UserController extends Controller
     public function create()
     {
         $role = Auth::user()->role;
-        if ($role == 'user')
+        if ($role == 'student')
             abort(404);
         return view('admin.users.create');
     }
@@ -50,19 +54,34 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        $role = Auth::user()->role;
-        $id = Auth::user()->id;
-        if ($role == 'user')
-            abort(404);
+       $role = Auth::user()->role;
+       $id = Auth::user()->id;
+       $user_info = new UserInfo();
+       $user_info->name=$request->name;
+       $user_info->surname=$request->surname;
+       $user_info->father_name=$request->father_name;
+       $user_info->birthdate=$request->sana;
+       $user_info->passport=$request->passport;
+       $user_info->address=$request->address;
+       $user_info->phone=$request->phone;
+       $user_info->save();
+
         $user = new User();
-        $user->name = $request->name;
+        $user->info_id=$user_info->id;
+
+        if($request->turi=='student'){
+            $user->group_id=11;
+
+        }
+        $user->role=$request->turi;
+
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         if ($role == 'super_admin') {
-            $user->role = 'admin';
+            $user->role = 'user';
             $user->user_id = 1;
         }
-        if ($role == 'admin') {
+        if ($role == 'user') {
             $user->user_id = $id;
         }
         $user->status=Auth::user()->status;
@@ -90,11 +109,11 @@ class UserController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function edit(User $user)
-    {
+    {   $role=Auth::user()->role;
         $id = Auth::user()->id;
-        if ($user->id != $id)
+        if ($user->id != $id && $role != 'super_admin')
             abort(403);
-        return view('admin.users.edit', compact('user'));
+        return view('admin.users.edit', ['user'=>$user]);
     }
 
     /**
@@ -106,15 +125,40 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+
         $role = Auth::user()->role;
         $id = Auth::user()->id;
+        $t=User::all()->where('email',$request->email);
+        if(count($t)>0) {
+            if ($t->first()->id != $user->id) {
+                return redirect()->back()->withErrors('Bu email foydalanilgan !');
+            }
+        }
+
         $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required|confirmed|min:8',
+            'name'=>'required',
+            'email'=>'required |email',
+            'password'=>'required | min:8',
+            'password_confirm'=>'required_with:password|same:password',
+            'phone'=>['required',new PhoneNumber()],
+            'address'=>'required',
+            'passport'=>['required',new PassportNumber()],
+            'surname'=>'required',
+            'father_name'=>'required',
+            'sana'=>'required'
         ]);
+        $user_info=UserInfo::find($user->info_id);
+        $user_info->name=$request->name;
+        $user_info->surname=$request->surname;
+        $user_info->father_name=$request->father_name;
+        $user_info->birthdate=$request->sana;
+        $user_info->passport=$request->passport;
+        $user_info->address=$request->address;
+        $user_info->phone=$request->phone;
+        $user_info->save();
+
         $user->update([
-            'name' => $request->name,
+            'info_id'=>$user_info->id,
             'email' => $request->email,
             'password' => Hash::make($request->password)
         ]);

@@ -72,19 +72,31 @@
         <li class="menu-item {{  request()->routeIs('admin.universities.index') ? 'active' : '' }}">
             <a href="{{ route('admin.universities.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons fas fa-university"></i>
-                <div data-i18n="Analytics">Universitet</div>
+                <div data-i18n="Analytics">Universitetlar</div>
             </a>
         </li>
         <li class="menu-item {{  request()->routeIs('admin.facultets.index') ? 'active' : '' }}">
             <a href="{{ route('admin.facultets.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons fas fa-building"></i>
-                <div data-i18n="Analytics">Fakultet</div>
+                <div data-i18n="Analytics">Fakultetlar</div>
             </a>
         </li>
         <li class="menu-item {{  request()->routeIs('admin.groups.index') ? 'active' : '' }}">
             <a href="{{ route('admin.groups.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons fas fa-layer-group"></i>
-                <div data-i18n="Analytics">Guruh</div>
+                <div data-i18n="Analytics">Guruhlar</div>
+            </a>
+        </li>
+        <li class="menu-item {{  request()->routeIs('admin.users.index') ? 'active' : '' }}">
+            <a href="{{ route('admin.users.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons fas fa-user"></i>
+                <div data-i18n="Analytics">Xodimlar</div>
+            </a>
+        </li>
+        <li class="menu-item {{  request()->routeIs('admin.students.index') ? 'active' : '' }}">
+            <a href="{{ route('admin.students.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons fas fa-user-astronaut"></i>
+                <div data-i18n="Analytics">Talabalar</div>
             </a>
         </li>
     </ul>

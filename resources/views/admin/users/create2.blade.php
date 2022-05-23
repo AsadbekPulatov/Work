@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="row">
-                    <div class="col-10"><h1 class="card-title">Xodim qo'shing</h1></div>
+                    <div class="col-10"><h1 class="card-title">Foydalanuvchi qo'shing</h1></div>
                 </div>
                 <hr>
                 <div class="card-body">
@@ -15,39 +15,9 @@
                     <form action="{{route('admin.users.store')}}" method="POST" accept-charset="UTF-8">
                         @csrf
                         <div class="form-group">
-                            <label for="header_ru">Ism</label>
+                            <label for="header_ru">Foydalanuvchi nomi</label>
                             <input type="text" name="name" required class="form-control" id="header_ru"
-                                   value="{{old('name')}}" placeholder="">
-                        </div>
-                        <div class="form-group">
-                            <label for="header_ru">Familya</label>
-                            <input type="text" name="surname" required class="form-control" id="header_ru"
-                                   value="{{old('surname')}}" placeholder="">
-                        </div>
-                        <div class="form-group">
-                            <label for="header_ru">Sharif</label>
-                            <input type="text" name="father_name" required class="form-control" id="header_ru"
-                                   value="{{old('father_name')}}" placeholder="">
-                        </div>
-                        <div class="form-group">
-                            <label for="header_ru">Tug'ilgan sana</label>
-                            <input type="date" name="sana" required class="form-control" id="header_ru"
-                                   value="{{old('sana')}}" >
-                        </div>
-                        <div class="form-group">
-                            <label for="header_ru">Passport seriyasi va raqami</label>
-                            <input type="text" name="passport" required class="form-control" id="header_ru"
-                                   value="{{old('passport')}}" placeholder="AA0001122">
-                        </div>
-                        <div class="form-group">
-                            <label for="header_ru">Telefon raqami</label>
-                            <input type="text" name="phone" required class="form-control" id="header_ru"
-                                   value="{{old('phone')}}" placeholder="+998001112233">
-                        </div>
-                        <div class="form-group">
-                            <label for="header_ru">Manzil</label>
-                            <input type="text" name="address" required class="form-control" id="header_ru"
-                                   value="{{old('address')}}" placeholder="">
+                                   value="{{old('name')}}" placeholder="username">
                         </div>
                         <div class="form-group">
                             <label for="header_ru">Email</label>
@@ -66,7 +36,6 @@
                             <input type="checkbox" onclick="myFunction1()" id="chb">
                             <label for="chb">Parolni ko'rsatish</label>
                         </div>
-                        <input type="hidden" name="turi" value="user">
                         <button type="submit" id="alert" class="btn btn-primary">Saqlash</button>
                         <input type="reset" class="btn btn-danger" value="Tozalash">
                     </form>

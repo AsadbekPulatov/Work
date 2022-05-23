@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\PassportNumber;
+use App\Rules\PhoneNumber;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserRequest extends FormRequest
@@ -27,7 +29,13 @@ class UserRequest extends FormRequest
             'name'=>'required',
             'email'=>'required |email|unique:users',
             'password'=>'required | min:8',
-            'password_confirm'=>'required_with:password|same:password'
+            'password_confirm'=>'required_with:password|same:password',
+            'phone'=>['required',new PhoneNumber()],
+            'address'=>'required',
+            'passport'=>['required',new PassportNumber()],
+            'surname'=>'required',
+            'father_name'=>'required',
+            'sana'=>'required'
         ];
     }
 }

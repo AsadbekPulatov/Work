@@ -21,6 +21,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('admin'),
             'role' => 'super_admin',
             'user_id' => 1,
+            'info_id' => 1,
             'status' => 1
         ]);
 //        DB::table('users')->insert([

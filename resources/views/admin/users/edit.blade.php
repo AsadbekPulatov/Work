@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="row">
-                    <div class="col-10"><h1 class="card-title">Kontaktlarni tahrirlash</h1></div>
+                    <div class="col-10"><h1 class="card-title">Tahrirlash</h1></div>
                 </div>
                 <hr>
                 <div class="card-body">
@@ -16,30 +16,62 @@
                         @csrf
                         @method('PUT')
                         <div class="form-group">
-                            <label for="name">Ism
-
-                            </label>
-                            <input type="text" name="name" class="form-control" id="name" placeholder="Имя"
-                                   value="{{$user->name}}">
+                            <label for="header_ru">Ism</label>
+                            <input type="text" name="name" required class="form-control" id="header_ru"
+                                   value="{{$user->user_infos->name}}" placeholder="">
                         </div>
                         <div class="form-group">
-                            <label for="email">Elektron pochta</label>
-                            <input type="text" name="email" class="form-control" id="email" placeholder="Email"
-                                   value="{{$user->email}}">
+                            <label for="header_ru">Familya</label>
+                            <input type="text" name="surname" required class="form-control" id="header_ru"
+                                   value="{{$user->user_infos->surname}}" placeholder="">
                         </div>
                         <div class="form-group">
-                            <label for="pwd">Parol</label>
-                            <input type="password" name="password" class="form-control" id="pwd">
+                            <label for="header_ru">Sharif</label>
+                            <input type="text" name="father_name" required class="form-control" id="header_ru"
+                                   value="{{$user->user_infos->father_name}}" placeholder="">
                         </div>
                         <div class="form-group">
-                            <label for="pwd_confirm">Parolni qayta kiriting</label>
-                            <input type="password" name="password_confirmation" class="form-control" id="pwd_confirm">
+                            <label for="header_ru">Tug'ilgan sana</label>
+                            <input type="date" name="sana" required class="form-control" id="header_ru"
+                                   value="{{$user->user_infos->birthdate}}" >
+                        </div>
+                        <div class="form-group">
+                            <label for="header_ru">Passport seriyasi va raqami</label>
+                            <input type="text" name="passport" required class="form-control" id="header_ru"
+                                   value="{{$user->user_infos->passport}}" placeholder="AA0001122">
+                        </div>
+                        <div class="form-group">
+                            <label for="header_ru">Telefon raqami</label>
+                            <input type="text" name="phone" required class="form-control" id="header_ru"
+                                   value="{{$user->user_infos->phone}}" placeholder="+998001112233">
+                        </div>
+                        <div class="form-group">
+                            <label for="header_ru">Manzil</label>
+                            <input type="text" name="address" required class="form-control" id="header_ru"
+                                   value="{{$user->user_infos->address}}" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="header_ru">Email</label>
+                            <input type="email" name="email" required class="form-control" id="header_ru"
+                                   value="{{$user->email}}" placeholder="user@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="header_ru">Parol o'rnating</label>
+                            <input type="password" name="password" required class="form-control" id="myInput1"
+                                   placeholder="password">
+                        </div>
+                        <div class="form-group">
+                            <label for="header_ru">Parolni takrorlang</label>
+                            <input type="password" name="password_confirm" required class="form-control" id="myInput2"
+                                   placeholder="password">
                             <input type="checkbox" onclick="myFunction1()" id="chb">
                             <label for="chb">Parolni ko'rsatish</label>
                         </div>
-                        <button type="submit" class="btn btn-primary">Saqlash</button>
+                        <input type="hidden" name="turi" value="user">
+                        <button type="submit" id="alert" class="btn btn-primary">Saqlash</button>
                         <input type="reset" class="btn btn-danger" value="Tozalash">
                     </form>
+
                 </div>
             </div>
         </div>
@@ -50,13 +82,13 @@
     <script>
 
         function myFunction1() {
-            var x = document.getElementById("pwd_confirm");
+            var x = document.getElementById("myInput1");
             if (x.type === "password") {
                 x.type = "text";
             } else {
                 x.type = "password";
             }
-            var x = document.getElementById("pwd");
+            var x = document.getElementById("myInput2");
             if (x.type === "password") {
                 x.type = "text";
             } else {

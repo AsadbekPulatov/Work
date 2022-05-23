@@ -6,14 +6,14 @@
         <div class="card">
             <div class="card-header">
                 <div class="row">
-                    <div class="col-9"><h1 class="card-title">Xodimlar</h1></div>
+                    <div class="col-9"><h1 class="card-title">Talabalar</h1></div>
                     <div class="col-md-1">
                         @if(\Illuminate\Support\Facades\Auth::user()->role != 'user')
-                            <a class="btn btn-primary" href="{{route('admin.users.create')}}">
+                            <a class="btn btn-primary" href="{{route('admin.students.create')}}">
                             <span class="btn-label">
                                 <i class="fa fa-plus"></i>
                             </span>
-                                Xodim qo'shing
+                                Talaba qo'shing
                             </a>
                         @endif
                     </div>
@@ -37,7 +37,7 @@
                         @foreach($users as $key => $user)
                             <tr>
                                 <th scope="row" class="col-1">{{ $key+1 }}</th>
-                                <td>{{$user->user_infos->name}} {{$user->user_infos->surname}}</td>
+                                <td>{{$user->name}}</td>
                                 <td>{{$user->email}}</td>
                                 <td>{{$user->role}}</td>
                                 @if(\Illuminate\Support\Facades\Auth::user()->role == 'super_admin')
@@ -60,12 +60,6 @@
                                             </span>
                                         </a>
                                     @else
-                                        <a class="btn btn-warning btn-sm"
-                                           href="{{ route('admin.users.edit',$user->id) }}">
-                                            <span class="btn-label">
-                                                <i class="fa fa-pen"></i>
-                                            </span>
-                                        </a>
                                         <form action="{{ route('admin.users.destroy',$user->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
@@ -92,11 +86,11 @@
     @if(session('success'))
 
         <script>
-        swal({
-        icon: 'success',
-        text: 'Muvaffaqqiyatli bajarildi',
-        confirmButtonText: 'Continue',
-        })
+            swal({
+                icon: 'success',
+                text: 'Muvaffaqqiyatli bajarildi',
+                confirmButtonText: 'Continue',
+            })
         </script>
     @endif
     <script>
