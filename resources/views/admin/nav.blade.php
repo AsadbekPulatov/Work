@@ -29,7 +29,7 @@
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar">
-                        <img src="{{ asset('/assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle" />
+                        <img src="{{ asset('/assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle"/>
                     </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
@@ -38,12 +38,23 @@
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
                                     <div class="avatar">
-                                        <img src="{{ asset('/assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle" />
+                                        <img src="{{ asset('/assets/img/avatars/1.png') }}" alt
+                                             class="w-px-40 h-auto rounded-circle"/>
                                     </div>
                                 </div>
                                 <div class="flex-grow-1">
-                                    <span class="fw-semibold d-block">John Doe</span>
-                                    <small class="text-muted">Admin</small>
+                                    <span
+                                        class="fw-semibold d-block">{{ \Illuminate\Support\Facades\Auth::user()->user_infos->name }}</span>
+                                    <small class="text-muted">
+                                        @php
+                                            if (\Illuminate\Support\Facades\Auth::user()->role == 'super_admin')
+                                                echo 'admin';
+                                            if (\Illuminate\Support\Facades\Auth::user()->role == 'user')
+                                                echo 'xodim';
+                                            if (\Illuminate\Support\Facades\Auth::user()->role == 'student')
+                                                echo 'talaba';
+                                        @endphp
+                                    </small>
                                 </div>
                             </div>
                         </a>
@@ -67,10 +78,10 @@
                         <div class="dropdown-divider"></div>
                     </li>
                     <li>
-{{--                        <a class="dropdown-item" href="auth-login-basic.html">--}}
-{{--                            <i class="bx bx-power-off me-2"></i>--}}
-{{--                            <span class="align-middle">Log Out</span>--}}
-{{--                        </a>--}}
+                        {{--                        <a class="dropdown-item" href="auth-login-basic.html">--}}
+                        {{--                            <i class="bx bx-power-off me-2"></i>--}}
+                        {{--                            <span class="align-middle">Log Out</span>--}}
+                        {{--                        </a>--}}
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
                             <button type="submit" class="w-75" style="background-color: transparent; border: none">
