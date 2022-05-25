@@ -29,8 +29,9 @@ class UserController extends Controller
         $id = Auth::user()->id;
         if ($role == 'super_admin')
             $user = User::where('role', '!=', 'student')->get();
-        if ($role == 'user') abort(404);
-//            $user = User::where('user_id', $id)->orwhere('id', $id)->get();
+        if ($role == 'user')
+//            abort(404);
+            $user = User::where('user_id', $id)->orwhere('id', $id)->get();
 
         return view('admin.users.index')->with('users', $user);
     }
@@ -110,7 +111,10 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        return view('admin.users.show', [
+            'data' => $user,
+        ]);
     }
 
     /**
