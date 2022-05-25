@@ -104,8 +104,9 @@
             </li>
             <li class="menu-item {{  request()->routeIs('admin.statistic') ? 'active' : '' }}">
                 <a href="{{ route('admin.statistic') }}" class="menu-link">
-                    <i class="menu-icon tf-icons fas fa-user-astronaut"></i>
-                    <div data-i18n="Analytics">Statistikalar</div>
+                    <i class="menu-icon tf-icons fas fa-chart-bar"></i>
+{{--                    <i class="fa fa-bar-chart" aria-hidden="true"></i>--}}
+                    <div data-i18n="Analytics">Statistika</div>
                 </a>
             </li>
         @endif
