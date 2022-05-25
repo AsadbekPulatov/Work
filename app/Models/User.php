@@ -15,8 +15,10 @@ class User extends Authenticatable
 
 
     public function user_infos(){
-
         return $this->belongsTo(UserInfo::class,'info_id');
+    }
+    public function grad(){
+        return $this->belongsTo(Graduate::class, 'graduate_id');
     }
     /**
      * The attributes that are mass assignable.

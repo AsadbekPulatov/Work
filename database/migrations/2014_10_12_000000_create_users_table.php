@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('info_id');
             $table->integer('group_id');
+            $table->integer('graduate_id');
             $table->string('role')->default('user');
             $table->string('email')->unique();
             $table->string('password');

@@ -27,6 +27,7 @@
                             <th scope="col">Ism Familya</th>
                             <th scope="col">Email</th>
                             <th scope="col">Telefon raqami</th>
+                            <th scope="col">Status</th>
                             <th scope="col">Harakat</th>
                         </tr>
                         </thead>
@@ -37,6 +38,23 @@
                                 <td>{{$user->user_infos->name}} {{$user->user_infos->surname}}</td>
                                 <td>{{$user->email}}</td>
                                 <td>{{$user->user_infos->phone}}</td>
+                                <td>
+{{--                                    {{ $user->grad->id }}--}}
+                                    <form action="{{ route('admin.graduate.status') }}" method="post" id="form">
+                                        @csrf
+                                        <input type="hidden" value="{{ $user->grad->id }}" name="grad_id">
+                                        <div class="d-flex justify-content-between">
+                                            <select name="status" id="status" class="form-select form-control">
+                                                <option value="1" @if($user->grad->status == 1) selected @endif>Ishga kirdi</option>
+                                                <option value="2" @if($user->grad->status == 2) selected @endif>Ishga kirmadi</option>
+                                                <option value="3" @if($user->grad->status == 3) selected @endif>Ish izlayapti</option>
+                                                <option value="4" @if($user->grad->status == 4) selected @endif>Imtixondan o'tmadi</option>
+                                                <option value="5" @if($user->grad->status == 5) selected @endif>BMI topshirmagan</option>
+                                            </select>
+                                            <button type="submit" class="btn-success"><i class="fa fa-check"></i></button>
+                                        </div>
+                                    </form>
+                                </td>
                                 <td class="">
 <div class="d-flex justify-content-center">
                                         <a class="btn btn-warning btn-sm"

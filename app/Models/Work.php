@@ -10,6 +10,7 @@ class Work extends Model
     use HasFactory;
 
     protected $fillable = [
+        'student_id',
         'command',
         'firm_name',
         'firm_address',

@@ -29,8 +29,8 @@ class UserController extends Controller
         $id = Auth::user()->id;
         if ($role == 'super_admin')
             $user = User::where('role', '!=', 'student')->get();
-        if ($role == 'user')
-            $user = User::where('user_id', $id)->orwhere('id', $id)->get();
+        if ($role == 'user') abort(404);
+//            $user = User::where('user_id', $id)->orwhere('id', $id)->get();
 
         return view('admin.users.index')->with('users', $user);
     }
@@ -69,7 +69,9 @@ class UserController extends Controller
        $user_info->address=$request->address;
        $user_info->phone=$request->phone;
        $user_info->save();
-
+        $g=new Graduate();
+        $g->status=5;
+        $g->save();
         $user = new User();
         $user->info_id=$user_info->id;
 
@@ -86,15 +88,10 @@ class UserController extends Controller
         }
         if ($role == 'user') {
             $user->user_id = $id;
+            $user->graduate_id = $g->id;
         }
         $user->status=Auth::user()->status;
         $user->save();
-        if($request->turi=='student'){
-            $g=new Graduate();
-            $g->student_id=$user->id;
-            $g->status=5;
-            $g->save();
-        }
         if($request->turi=='student'){
             return redirect()->route('admin.students.index')
                 ->with('success', 'Muvaffaqqiyatli yaratildi');
@@ -201,15 +198,21 @@ class UserController extends Controller
     {
         $role = Auth::user()->role;
         $id = Auth::user()->id;
+//        dd($user->group_id);
         if ($user->id == $id)
             abort(403);
         if ($role == 'super_admin')
             $user->delete();
-        else if ($role == 'admin' && $user->user_id == $id)
+        else if ($role == 'user')
             $user->delete();
         else abort(403);
-        return redirect()->route('admin.users.index')
-            ->with('success', 'Muvaffaqqiyatli o`chirildi');
+        if($user->group_id > 0){
+            return redirect()->route('admin.students.index')
+                ->with('success', 'Muvaffaqqiyatli yangilandi');
+        }else{
+            return redirect()->route('admin.users.index')
+                ->with('success', 'Muvaffaqqiyatli yangilandi');
+        }
 
     }
 

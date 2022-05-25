@@ -17,7 +17,8 @@ class WorkController extends Controller
      */
     public function index()
     {
-        $works = Work::OrderBy('id')->paginate(10);
+        $id = Auth::user()->id;
+        $works = Work::where('student_id', $id)->paginate(10);
         return view('admin.work.index', [
             'works' => $works,
         ]);
@@ -49,7 +50,7 @@ class WorkController extends Controller
         $file = time().'.pdf';
 
         $request->document->move($path, $file);
-
+//        dd($id);
         $work->create([
             'student_id' => $id,
             'command' => $request['command'],

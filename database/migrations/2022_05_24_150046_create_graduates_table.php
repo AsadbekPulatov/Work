@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('graduates', function (Blueprint $table) {
             $table->id();
-            $table->integer('student_id');
             $table->integer('status');
             $table->timestamps();
         });

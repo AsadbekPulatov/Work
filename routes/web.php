@@ -31,9 +31,11 @@ Route::prefix('admin')->name('admin.')->middleware(['web', 'auth'])->group(funct
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::resource('users', App\Http\Controllers\UserController::class);
     Route::get('user/status/{user}', [\App\Http\Controllers\UserController::class, 'status'])->name('user.status')->middleware('super_admin');
-    Route::resource('students', App\Http\Controllers\StudentController::class)->middleware('user');
+    Route::resource('students', App\Http\Controllers\StudentController::class);
     Route::resource('universities', \App\Http\Controllers\UnivertyController::class)->middleware('super_admin');
     Route::resource('facultets', App\Http\Controllers\FacultetController::class)->middleware('super_admin');
     Route::resource('groups', \App\Http\Controllers\GroupController::class)->middleware('super_admin');
     Route::resource('works', \App\Http\Controllers\WorkController::class)->middleware('student');
+    Route::post('graduate', \App\Http\Controllers\GraduateController::class)->name('graduate.status')->middleware('user');
+    Route::get('statistic', [\App\Http\Controllers\StatisticController::class, 'index'])->name('statistic')->middleware('user');
 });
