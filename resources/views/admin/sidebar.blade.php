@@ -68,6 +68,8 @@
     <div class="menu-inner-shadow"></div>
 
     <ul class="menu-inner py-1">
+        @if(\Illuminate\Support\Facades\Auth::user()->role=='super_admin')
+
         <!-- Dashboard -->
         <li class="menu-item {{  request()->routeIs('admin.universities.index') ? 'active' : '' }}">
             <a href="{{ route('admin.universities.index') }}" class="menu-link">
@@ -93,17 +95,23 @@
                 <div data-i18n="Analytics">Xodimlar</div>
             </a>
         </li>
+        @endif
+        @if(\Illuminate\Support\Facades\Auth::user()->role=='user')
         <li class="menu-item {{  request()->routeIs('admin.students.index') ? 'active' : '' }}">
             <a href="{{ route('admin.students.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons fas fa-user-astronaut"></i>
                 <div data-i18n="Analytics">Talabalar</div>
             </a>
         </li>
+        @endif
+
+    @if(\Illuminate\Support\Facades\Auth::user()->role=='student')
         <li class="menu-item {{  request()->routeIs('admin.works.index') ? 'active' : '' }}">
             <a href="{{ route('admin.works.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons fas fa-folder"></i>
                 <div data-i18n="Analytics">Korxonalar</div>
             </a>
         </li>
+        @endif
     </ul>
 </aside>

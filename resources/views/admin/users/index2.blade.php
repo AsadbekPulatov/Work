@@ -8,7 +8,7 @@
                 <div class="row">
                     <div class="col-9"><h1 class="card-title">Talabalar</h1></div>
                     <div class="col-md-1">
-                        @if(\Illuminate\Support\Facades\Auth::user()->role != 'user')
+                        @if(\Illuminate\Support\Facades\Auth::user()->role == 'user')
                             <a class="btn btn-primary" href="{{route('admin.students.create')}}">
                             <span class="btn-label">
                                 <i class="fa fa-plus"></i>

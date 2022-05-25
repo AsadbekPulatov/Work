@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
 use App\Models\Fakultet;
+use App\Models\Graduate;
 use App\Models\Group;
 use App\Models\University;
 use App\Models\User;
@@ -88,6 +89,12 @@ class UserController extends Controller
         }
         $user->status=Auth::user()->status;
         $user->save();
+        if($request->turi=='student'){
+            $g=new Graduate();
+            $g->student_id=$user->id;
+            $g->status=5;
+            $g->save();
+        }
         if($request->turi=='student'){
             return redirect()->route('admin.students.index')
                 ->with('success', 'Muvaffaqqiyatli yaratildi');
