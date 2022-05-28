@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('faculty_id');
+            $table->integer('university_id');
             $table->integer('employee_id');
             $table->timestamps();
         });

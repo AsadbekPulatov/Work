@@ -70,9 +70,6 @@ class UserController extends Controller
        $user_info->address=$request->address;
        $user_info->phone=$request->phone;
        $user_info->save();
-        $g=new Graduate();
-        $g->status=5;
-        $g->save();
         $user = new User();
         $user->info_id=$user_info->id;
 
@@ -89,6 +86,9 @@ class UserController extends Controller
         }
         if ($role == 'user') {
             $user->user_id = $id;
+            $g=new Graduate();
+            $g->status=5;
+            $g->save();
             $user->graduate_id = $g->id;
         }
         $user->status=Auth::user()->status;

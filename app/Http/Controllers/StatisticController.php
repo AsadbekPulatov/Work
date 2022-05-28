@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Auth;
 class StatisticController extends Controller
 {
     public function index(){
-        $id = Auth::user()->id;
-        $all = User::where('user_id', $id)->get();
+//        $id = Auth::user()->id;
+        $all = User::where('role', 'student')->get();
         $users = [];
         foreach ($all as $value)
             array_push($users, $value->graduate_id);

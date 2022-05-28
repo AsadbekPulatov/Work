@@ -70,10 +70,10 @@
             e.preventDefault();
             let cnt = 0;
             var value = $('#name').val();
-            var faculty = $('#faculty').val();
+            var faculty = $('#university').val();
             if (groups.length == 0) $('#myForm').submit();
             for (let i = 0; i < groups.length; i++) {
-                if (value == groups[i].name && faculty == groups[i].faculty_id) {
+                if (value == groups[i].name && faculty == groups[i].university_id) {
                     cnt++;
                     break;
                 }

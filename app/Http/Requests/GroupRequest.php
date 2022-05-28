@@ -25,6 +25,7 @@ class GroupRequest extends FormRequest
     {
         return [
             'faculty_id' => 'required',
+            'university_id' => 'required',
             'name' => 'required',
         ];
     }

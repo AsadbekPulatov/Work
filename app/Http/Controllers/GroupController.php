@@ -48,9 +48,11 @@ class GroupController extends Controller
      */
     public function store(GroupRequest $request, Group $group)
     {
+//        dd($request->validated());
         $group->create([
             'name' => $request['name'],
             'faculty_id' => $request['faculty_id'],
+            'university_id' => $request['university_id'],
             'employee_id' => 1,
         ]);
         return redirect()->route('admin.groups.index')->with('success', 'created');
