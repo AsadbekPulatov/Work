@@ -19,7 +19,7 @@ class GraduateController extends Controller
         $data = Graduate::find($id);
         $data['status'] = $request['status'];
         $data->save();
-        return redirect()->route('admin.students.index')
+        return redirect()->route('admin.students.index', ['id' => $request->id])
             ->with('success', 'Muvaffaqqiyatli yaratildi');
     }
 }

@@ -8,10 +8,6 @@
                 </div>
                 <hr>
                 <div class="card-body">
-
-
-
-
                     <form action="{{route('admin.users.store')}}" method="POST" accept-charset="UTF-8">
                         @csrf
                         <div class="form-group">
@@ -67,32 +63,8 @@
                             <input type="checkbox" onclick="myFunction1()" id="chb">
                             <label for="chb">Parolni ko'rsatish</label>
                         </div>
-                        <div class="form-group">
-                            <label for="university_id"> Universitet </label>
-                            <select name="university_id" required class="form-select form-control form-select-lg mb-3"  id="university">
-                                <option value="" selected>Universitetni tanlang</option>
-                                @foreach($universities as $university)
-                                    <option value="{{$university->id}}">{{$university->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="faculty_id"> Fakultet </label>
-                            <select name="faculty_id" required class="form-select form-control form-select-lg mb-3"  id="faculty">
-                                <option value="" selected>Fakultetni tanlang</option>
-
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="name"> Guruh nomi </label>
-                            <select name="group_id" required class="form-select form-control form-select-lg mb-3"  id="group">
-                                <option value="" selected>Guruhni tanlang</option>
-                            </select>
-                        </div>
-
                         <input type="hidden" name="turi" value="student">
+                        <input type="hidden" name="id" value="{{ $id }}">
                         <button type="submit" id="alert" class="btn btn-primary">Saqlash</button>
                         <input type="reset" class="btn btn-danger" value="Tozalash">
                     </form>
@@ -104,37 +76,37 @@
 
 @endsection
 @section('script')
-    <script>
-        let faculties = @json($faculties);
-        $('#university').on('change', function() {
-            var value = $(this).val();
-            $('#faculty').empty();
-            $('#faculty').append("<option value=''>Fakultetni tanlang</option>")
-            for (let i = 0; i < faculties.length; i++) {
-                if (value == faculties[i].university_id) {
-                    var option = document.createElement("option");   // Create with DOM
-                    option.innerHTML = faculties[i].name;
-                    option.value = faculties[i].id;
-                    $('#faculty').append(option);
-                }
-            }
-        });
-        let groups = @json($groups);
-        $('#faculty').on('change', function() {
-            var value = $(this).val();
-            $('#group').empty();
-            $('#group').append("<option value=''>Guruhni tanlang</option>")
-            for (let i = 0; i < groups.length; i++) {
-                if (value == groups[i].faculty_id) {
-                    var option = document.createElement("option");   // Create with DOM
-                    option.innerHTML = groups[i].name;
-                    option.value = groups[i].id;
-                    $('#group').append(option);
-                }
-            }
-        });
+{{--    <script>--}}
+{{--        let faculties = @json($faculties);--}}
+{{--        $('#university').on('change', function() {--}}
+{{--            var value = $(this).val();--}}
+{{--            $('#faculty').empty();--}}
+{{--            $('#faculty').append("<option value=''>Fakultetni tanlang</option>")--}}
+{{--            for (let i = 0; i < faculties.length; i++) {--}}
+{{--                if (value == faculties[i].university_id) {--}}
+{{--                    var option = document.createElement("option");   // Create with DOM--}}
+{{--                    option.innerHTML = faculties[i].name;--}}
+{{--                    option.value = faculties[i].id;--}}
+{{--                    $('#faculty').append(option);--}}
+{{--                }--}}
+{{--            }--}}
+{{--        });--}}
+{{--        let groups = @json($groups);--}}
+{{--        $('#faculty').on('change', function() {--}}
+{{--            var value = $(this).val();--}}
+{{--            $('#group').empty();--}}
+{{--            $('#group').append("<option value=''>Guruhni tanlang</option>")--}}
+{{--            for (let i = 0; i < groups.length; i++) {--}}
+{{--                if (value == groups[i].faculty_id) {--}}
+{{--                    var option = document.createElement("option");   // Create with DOM--}}
+{{--                    option.innerHTML = groups[i].name;--}}
+{{--                    option.value = groups[i].id;--}}
+{{--                    $('#group').append(option);--}}
+{{--                }--}}
+{{--            }--}}
+{{--        });--}}
 
-    </script>
+{{--    </script>--}}
     <script>
 
         function myFunction1() {

@@ -96,8 +96,8 @@
             </li>
         @endif
         @if(\Illuminate\Support\Facades\Auth::user()->role=='user')
-            <li class="menu-item {{  request()->routeIs('admin.students.index') ? 'active' : '' }}">
-                <a href="{{ route('admin.students.index') }}" class="menu-link">
+            <li class="menu-item {{  request()->routeIs('admin.user.group') ? 'active' : '' }}">
+                <a href="{{ route('admin.user.group') }}" class="menu-link">
                     <i class="menu-icon tf-icons fas fa-user-astronaut"></i>
                     <div data-i18n="Analytics">Talabalar</div>
                 </a>

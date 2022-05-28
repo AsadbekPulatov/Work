@@ -6,14 +6,6 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-9"><h1 class="card-title">Guruhlar</h1></div>
-                    <div class="col-md-1">
-                        <a class="btn btn-primary" href="{{route('admin.groups.create')}}">
-                            <span class="btn-label">
-                                <i class="fa fa-plus"></i>
-                            </span>
-                            Guruh qo'shing
-                        </a>
-                    </div>
                 </div>
                 <hr>
                 <div class="card-body">
@@ -32,7 +24,11 @@
                         @foreach($groups as $ind=>$group)
                             <tr>
                                 <th scope="row" class="col-1"> {{$ind+1}} </th>
-                                <td>{{ $group->name }}</td>
+                                <td>
+                                    <a href="{{ route('admin.students.index', ['id' => $group->id]) }}" class="page-link">
+                                        {{ $group->name }}
+                                    </a>
+                                </td>
                                 <td>{{ $group->faculty->name }}</td>
                                 <td>{{ $group->faculty->university->name }}</td>
                                 <td class="col-2">
@@ -81,38 +77,3 @@
     </div>
 
 @endsection
-
-@section('script')
-    @if(session('success'))
-
-        <script>
-            swal({
-                icon: 'success',
-                text: 'Muvaffaqqiyatli bajarildi',
-                confirmButtonText: 'Continue',
-            })
-        </script>
-    @endif
-    <script>
-        $('.show_confirm').click(function (event) {
-            var form = $(this).closest("form");
-            var name = $(this).data("name");
-            event.preventDefault();
-            swal({
-                title: `Haqiqatan ham bu yozuvni oʻchirib tashlamoqchimisiz?`,
-                text: "Agar siz buni o'chirib tashlasangiz, u abadiy yo'qoladi.",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-                buttons: ['Yo`q', 'Ha']
-            }).then((willDelete) => {
-                if (willDelete) {
-                    form.submit();
-                }
-            });
-        });
-    </script>
-@endsection
-
-
-

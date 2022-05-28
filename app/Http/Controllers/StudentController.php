@@ -19,25 +19,24 @@ use Illuminate\Support\Facades\Auth;
 class StudentController
 {
 
-    public function index()
+    public function index(Request $request)
     {
+        $id = $request->id;
         $university_id = Auth::user()->university_id;
 //        dd($university_id);
-        $user = User::where('role', 'student')->where('university_id', $university_id)->get();
+        $user = User::where('group_id', $id)->get();
 
-        return view('admin.users.index2')->with('users', $user);
+        return view('admin.users.index2',[
+            'users' => $user,
+            'id' => $id,
+        ]);
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        $university_id = Auth::user()->university_id;
-        $universities = University::where('id', $university_id)->get();
-        $faculties = Fakultet::all();
-        $groups = Group::all();
+        $id = $request->id;
         return view('admin.users.create2', [
-            'universities' => $universities,
-            'faculties' => $faculties,
-            'groups' => $groups,
+            'id' => $id
         ]);
     }
     public function store(Request $request)

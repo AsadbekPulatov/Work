@@ -63,6 +63,8 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
 //        dd($request);
+        $group_id = $request->id;
+        $university_id = Group::find($request->id)->faculty->university_id;
        $role = Auth::user()->role;
        $id = Auth::user()->id;
        $user_info = new UserInfo();
@@ -77,12 +79,14 @@ class UserController extends Controller
         $user = new User();
         $user->info_id=$user_info->id;
 
-        if($request->turi=='student'){
-            $user->group_id=$request->group_id;
-
-        }
+//        if($request->turi=='student'){
+////            $user->group_id=$request->group_id;
+//
+//        }
         $user->role=$request->turi;
-        $user->university_id = $request['university_id'];
+        $user->group_id = $group_id;
+        $user->university_id = $university_id;
+//        $user->university_id = $request['university_id'];
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         if ($role == 'super_admin') {
@@ -98,7 +102,7 @@ class UserController extends Controller
         $user->status=Auth::user()->status;
         $user->save();
         if($request->turi=='student'){
-            return redirect()->route('admin.students.index')
+            return redirect()->route('admin.students.index', ['id' => $id])
                 ->with('success', 'Muvaffaqqiyatli yaratildi');
         }else{
             return redirect()->route('admin.users.index')
@@ -223,6 +227,14 @@ class UserController extends Controller
         }
 
     }
+
+    public function group(){
+        $groups = Group::OrderBy('id', 'DESC')->paginate(10);
+        return view('admin.users.group', [
+            'groups' => $groups,
+        ]);
+    }
+
 
     public function status(User $user)
     {
