@@ -39,24 +39,41 @@
                                 <td>{{$user->email}}</td>
                                 <td>{{$user->user_infos->phone}}</td>
                                 <td>
-{{--                                    {{ $user->grad->id }}--}}
-                                    <form action="{{ route('admin.graduate.status', ['id' => $user->group_id]) }}" method="post" id="form">
+                                    {{--                                    {{ $user->grad->id }}--}}
+                                    <form action="{{ route('admin.graduate.status', ['id' => $user->group_id]) }}"
+                                          method="post" id="form">
                                         @csrf
                                         <input type="hidden" value="{{ $user->grad->id }}" name="grad_id">
                                         <div class="d-flex justify-content-between">
                                             <select name="status" id="status" class="form-select form-control">
-                                                <option value="1" @if($user->grad->status == 1) selected @endif>Ishga kirdi</option>
-                                                <option value="2" @if($user->grad->status == 2) selected @endif>Ishga kirmadi</option>
-{{--                                                <option value="3" @if($user->grad->status == 3) selected @endif>Ish izlayapti</option>--}}
-                                                <option value="4" @if($user->grad->status == 4) selected @endif>Imtixondan o'tmadi</option>
-                                                <option value="5" @if($user->grad->status == 5) selected @endif>BMI topshirmagan</option>
+                                                <option value="1" @if($user->grad->status == 1) selected @endif>Ishga
+                                                    kirdi
+                                                </option>
+                                                <option value="2" @if($user->grad->status == 2) selected @endif>Ishga
+                                                    kirmadi
+                                                </option>
+                                                {{--                                                <option value="3" @if($user->grad->status == 3) selected @endif>Ish izlayapti</option>--}}
+                                                <option value="4" @if($user->grad->status == 4) selected @endif>
+                                                    Imtixondan o'tmadi
+                                                </option>
+                                                <option value="5" @if($user->grad->status == 5) selected @endif>BMI
+                                                    topshirmagan
+                                                </option>
                                             </select>
-                                            <button type="submit" class="btn-success"><i class="fa fa-check"></i></button>
+                                            <button type="submit" class="btn-success"><i class="fa fa-check"></i>
+                                            </button>
                                         </div>
                                     </form>
                                 </td>
                                 <td class="">
-<div class="d-flex justify-content-center">
+                                    <div class="d-flex justify-content-center">
+                                        <a class="btn btn-info btn-sm"
+                                           href="{{ route('admin.download',$user->id) }}">
+                                            <span class="btn-label">
+                                                <i class="fa fa-download"></i>
+                                            </span>
+                                        </a>
+
                                         <a class="btn btn-warning btn-sm"
                                            href="{{ route('admin.students.edit',$user->id) }}">
                                             <span class="btn-label">
@@ -73,7 +90,7 @@
                                                 </span>
                                             </button>
                                         </form>
-</div>
+                                    </div>
 
                                 </td>
                             </tr>

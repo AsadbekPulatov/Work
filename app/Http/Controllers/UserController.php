@@ -229,7 +229,8 @@ class UserController extends Controller
     }
 
     public function group(){
-        $groups = Group::OrderBy('id', 'DESC')->paginate(10);
+        $university_id = Auth::user()->university_id;
+        $groups = Group::where('university_id', $university_id)->paginate(10);
         return view('admin.users.group', [
             'groups' => $groups,
         ]);

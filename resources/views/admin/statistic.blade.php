@@ -3,7 +3,13 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading"><b>Charts</b></div>
+                <div class="panel-heading"><b>Statistika</b></div>
+                <div class="d-flex">
+                    <a href="{{ route('admin.statistic') }}" class="page-link">hammasi</a>
+                    @foreach($groups as $group)
+                        <a href="{{ route('admin.statistic', ['id' => $group->id]) }}" class="page-link">{{ $group->name }}</a>
+                    @endforeach
+                </div>
                 <div class="panel-body">
                     <canvas id="canvas" height="280" width="600"></canvas>
                 </div>
@@ -19,7 +25,7 @@
         let students = @json($students);
         let n1 = @json($n1);
         let n2 = @json($n2);
-        let n3 = @json($n3);
+        {{--let n3 = @json($n3);--}}
         let n4 = @json($n4);
         let n5 = @json($n5);
         // console.log(students.length, n1.length, n2.length, n3.length, n4.length, n5.length);

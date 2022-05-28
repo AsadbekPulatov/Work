@@ -39,4 +39,5 @@ Route::prefix('admin')->name('admin.')->middleware(['web', 'auth'])->group(funct
     Route::post('graduate', \App\Http\Controllers\GraduateController::class)->name('graduate.status')->middleware('user');
     Route::get('statistic', [\App\Http\Controllers\StatisticController::class, 'index'])->name('statistic')->middleware('user');
     Route::get('groups-student', [\App\Http\Controllers\UserController::class, 'group'])->name('user.group')->middleware('user');
+    Route::get('download/{id}', [\App\Http\Controllers\DownloadController::class, 'download'])->name('download')->middleware('user');
 });

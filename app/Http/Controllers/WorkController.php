@@ -48,19 +48,35 @@ class WorkController extends Controller
         $id = Auth::user()->id;
         $path = 'assets/documents/';
         $file = time().'.pdf';
-
-        $request->document->move($path, $file);
-//        dd($id);
-        $work->create([
-            'student_id' => $id,
-            'command' => $request['command'],
-            'firm_name' => $request['firm_name'],
-            'firm_address' => $request['firm_address'],
-            'firm_phone' => $request['firm_phone'],
-            'firm_year' => $request['firm_year'],
-            'document' => $file,
-        ]);
-
+        $works = Work::where('student_id', $id)->get();
+        if ($works == NULL){
+            $request->document->move($path, $file);
+            $work->create([
+                'student_id' => $id,
+                'command' => $request['command'],
+                'firm_name' => $request['firm_name'],
+                'firm_address' => $request['firm_address'],
+                'firm_phone' => $request['firm_phone'],
+                'firm_year' => $request['firm_year'],
+                'document' => $file,
+            ]);
+        }
+        else{
+            $document = $works[0]->document;
+//            dd($document);
+            if (File::exists(public_path('/assets/img/documents/'.$document))){
+                File::delete(public_path('/assets/img/documents/'.$document));
+            }
+            $request->document->move($path, $file);
+            $works[0]->update([
+                'command' => $request['command'],
+                'firm_name' => $request['firm_name'],
+                'firm_address' => $request['firm_address'],
+                'firm_phone' => $request['firm_phone'],
+                'firm_year' => $request['firm_year'],
+                'document' => $file,
+            ]);
+        }
         return redirect()->route('admin.works.index')->with('success', 'created');
     }
 
