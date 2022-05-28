@@ -66,6 +66,15 @@
                             <input type="checkbox" onclick="myFunction1()" id="chb">
                             <label for="chb">Parolni ko'rsatish</label>
                         </div>
+                        <div class="form-group">
+                            <label for="university_id"> Universitet </label>
+                            <select name="university_id" required class="form-select form-control form-select-lg mb-3"  id="university">
+                                <option value="" selected>Universitetni tanlang</option>
+                                @foreach($universities as $university)
+                                    <option value="{{$university->id}}">{{$university->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <input type="hidden" name="turi" value="user">
                         <button type="submit" id="alert" class="btn btn-primary">Saqlash</button>
                         <input type="reset" class="btn btn-danger" value="Tozalash">

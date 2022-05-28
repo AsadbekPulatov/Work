@@ -45,10 +45,13 @@ class UserController extends Controller
      */
     public function create()
     {
+        $universities = University::all();
         $role = Auth::user()->role;
         if ($role == 'student')
             abort(404);
-        return view('admin.users.create');
+        return view('admin.users.create', [
+            'universities' => $universities,
+        ]);
     }
 
     /**
@@ -59,6 +62,7 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
+//        dd($request);
        $role = Auth::user()->role;
        $id = Auth::user()->id;
        $user_info = new UserInfo();
@@ -78,7 +82,7 @@ class UserController extends Controller
 
         }
         $user->role=$request->turi;
-
+        $user->university_id = $request['university_id'];
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         if ($role == 'super_admin') {

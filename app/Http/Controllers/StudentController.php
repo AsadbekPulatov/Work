@@ -21,14 +21,17 @@ class StudentController
 
     public function index()
     {
-        $user = User::where('role', 'student')->get();
+        $university_id = Auth::user()->university_id;
+//        dd($university_id);
+        $user = User::where('role', 'student')->where('university_id', $university_id)->get();
 
         return view('admin.users.index2')->with('users', $user);
     }
 
     public function create()
     {
-        $universities = University::all();
+        $university_id = Auth::user()->university_id;
+        $universities = University::where('id', $university_id)->get();
         $faculties = Fakultet::all();
         $groups = Group::all();
         return view('admin.users.create2', [
