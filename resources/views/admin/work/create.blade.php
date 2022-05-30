@@ -47,35 +47,35 @@
 
 @endsection
 @section('script')
-    <script>
-        let works = @json($works);
-        // console.log(works);
-        // $('#myForm').validate();
-        $(document).on('click', '#alert', function (e) {
-            e.preventDefault();
-            let cnt = 0;
-            var name = $('#name').val();
-            var phone = $('#phone').val();
-            if (works.length == 0) $('#myForm').submit();
-            for (let i = 0; i < works.length; i++) {
-                if (name == works[i].firm_name || phone == works[i].firm_phone) {
-                    cnt++;
-                    break;
-                }
-            }
-            if (cnt > 0) {
-                swal({
-                    icon: 'error',
-                    title: 'Xatolik',
-                    text: 'Korxona oldin kiritilgan',
-                    confirmButtonText: 'Continue',
-                })
-                $('#name').val('');
-                $('#phone').val('');
-            }
-            else $('#myForm').submit();
-        });
-    </script>
+{{--    <script>--}}
+{{--        let works = @json($works);--}}
+{{--        // console.log(works);--}}
+{{--        // $('#myForm').validate();--}}
+{{--        $(document).on('click', '#alert', function (e) {--}}
+{{--            e.preventDefault();--}}
+{{--            let cnt = 0;--}}
+{{--            var name = $('#name').val();--}}
+{{--            var phone = $('#phone').val();--}}
+{{--            if (works.length == 0) $('#myForm').submit();--}}
+{{--            for (let i = 0; i < works.length; i++) {--}}
+{{--                if (name == works[i].firm_name || phone == works[i].firm_phone) {--}}
+{{--                    cnt++;--}}
+{{--                    break;--}}
+{{--                }--}}
+{{--            }--}}
+{{--            if (cnt > 0) {--}}
+{{--                swal({--}}
+{{--                    icon: 'error',--}}
+{{--                    title: 'Xatolik',--}}
+{{--                    text: 'Korxona oldin kiritilgan',--}}
+{{--                    confirmButtonText: 'Continue',--}}
+{{--                })--}}
+{{--                $('#name').val('');--}}
+{{--                $('#phone').val('');--}}
+{{--            }--}}
+{{--            else $('#myForm').submit();--}}
+{{--        });--}}
+{{--    </script>--}}
     <script>
 
         let errors = @json($errors->all());

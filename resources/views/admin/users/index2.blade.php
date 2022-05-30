@@ -67,13 +67,22 @@
                                 </td>
                                 <td class="">
                                     <div class="d-flex justify-content-center">
-                                        <a class="btn btn-info btn-sm"
-                                           href="{{ route('admin.download',$user->id) }}">
-                                            <span class="btn-label">
-                                                <i class="fa fa-download"></i>
-                                            </span>
-                                        </a>
-
+                                        @foreach($works as $work)
+                                            @if ($work->student_id == $user->id)
+                                                <a class="btn btn-info btn-sm"
+                                                   href="{{ route('admin.download',$user->id) }}">
+                                                    <span class="btn-label">
+                                                        <i class="fa fa-download"></i>
+                                                    </span>
+                                                </a>
+                                            @else
+                                                <a class="btn btn-gray btn-sm">
+                                                    <span class="btn-label">
+                                                        <i class="fa fa-download"></i>
+                                                    </span>
+                                                </a>
+                                            @endif
+                                        @endforeach
                                         <a class="btn btn-warning btn-sm"
                                            href="{{ route('admin.students.edit',$user->id) }}">
                                             <span class="btn-label">

@@ -49,7 +49,9 @@ class WorkController extends Controller
         $path = 'assets/documents/';
         $file = time().'.pdf';
         $works = Work::where('student_id', $id)->get();
-        if ($works == NULL){
+//        dd($works->count());
+        if ($works->count() == 0){
+//            dd(1);
             $request->document->move($path, $file);
             $work->create([
                 'student_id' => $id,
@@ -62,6 +64,7 @@ class WorkController extends Controller
             ]);
         }
         else{
+//            dd(0);
             $document = $works[0]->document;
 //            dd($document);
             if (File::exists(public_path('/assets/img/documents/'.$document))){

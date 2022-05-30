@@ -10,6 +10,7 @@ use App\Models\Room;
 use App\Models\Student;
 use App\Models\University;
 use App\Models\User;
+use App\Models\Work;
 use App\Rules\PassportNumber;
 use App\Rules\PhoneNumber;
 use Illuminate\Http\Request;
@@ -25,10 +26,15 @@ class StudentController
         $university_id = Auth::user()->university_id;
 //        dd($university_id);
         $user = User::where('group_id', $id)->get();
-
+        $user_id = [];
+        foreach ($user as $value)
+            array_push($user_id, $value->id);
+        $works = Work::whereIn('student_id', $user_id)->get();
+//        dd($works);
         return view('admin.users.index2',[
             'users' => $user,
             'id' => $id,
+            'works' => $works,
         ]);
     }
 
