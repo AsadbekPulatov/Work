@@ -23,6 +23,7 @@ class StudentController
     public function index(Request $request)
     {
         $id = $request->id;
+//        dd(Work::where('student_id', 3)->count());
         $university_id = Auth::user()->university_id;
 //        dd($university_id);
         $user = User::where('group_id', $id)->get();

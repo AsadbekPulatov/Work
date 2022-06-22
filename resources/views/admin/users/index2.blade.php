@@ -67,8 +67,7 @@
                                 </td>
                                 <td class="">
                                     <div class="d-flex justify-content-center">
-                                        @foreach($works as $work)
-                                            @if ($work->student_id == $user->id)
+                                            @if (\App\Models\Work::where('student_id', $user->id)->count() != 0)
                                                 <a class="btn btn-info btn-sm"
                                                    href="{{ route('admin.download',$user->id) }}">
                                                     <span class="btn-label">
@@ -82,7 +81,6 @@
                                                     </span>
                                                 </a>
                                             @endif
-                                        @endforeach
                                         <a class="btn btn-warning btn-sm"
                                            href="{{ route('admin.students.edit',$user->id) }}">
                                             <span class="btn-label">

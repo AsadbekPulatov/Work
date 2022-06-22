@@ -63,8 +63,18 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
 //        dd($request);
-        $group_id = $request->id;
-        $university_id = Group::find($request->id)->faculty->university_id;
+        if ($request['turi'] == 'user')
+            $group_id = 0;
+        if ($request['turi'] == 'student')
+            $group_id = $request->id;
+//        dd($group_id);
+//        $university_id = Group::find($request->id)->faculty->university_id;
+        if ($request['turi'] == 'user')
+        $university_id = $request->university_id;
+        if ($request['turi'] == 'student'){
+            $university_id = User::find($request->id)->university_id;
+        }
+//        dd($university_id);
        $role = Auth::user()->role;
        $id = Auth::user()->id;
        $user_info = new UserInfo();
