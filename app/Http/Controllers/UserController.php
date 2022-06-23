@@ -112,7 +112,7 @@ class UserController extends Controller
         $user->status=Auth::user()->status;
         $user->save();
         if($request->turi=='student'){
-            return redirect()->route('admin.students.index', ['id' => $id])
+            return redirect()->route('admin.students.index', ['id' => $group_id])
                 ->with('success', 'Muvaffaqqiyatli yaratildi');
         }else{
             return redirect()->route('admin.users.index')
@@ -202,7 +202,7 @@ class UserController extends Controller
         ]);
 
         if($request->turi=='student'){
-            return redirect()->route('admin.students.index')
+            return redirect()->route('admin.students.index', ['id' => $request->group_id])
                 ->with('success', 'Muvaffaqqiyatli yangilandi');
         }else{
             return redirect()->route('admin.users.index')
@@ -218,6 +218,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        $gid = $user->group_id;
+//        dd($user);
         $role = Auth::user()->role;
         $id = Auth::user()->id;
 //        dd($user->group_id);
@@ -229,7 +231,7 @@ class UserController extends Controller
             $user->delete();
         else abort(403);
         if($user->group_id > 0){
-            return redirect()->route('admin.students.index')
+            return redirect()->route('admin.students.index', ['id' => $gid])
                 ->with('success', 'Muvaffaqqiyatli yangilandi');
         }else{
             return redirect()->route('admin.users.index')
