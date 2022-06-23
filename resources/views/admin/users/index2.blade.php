@@ -82,7 +82,7 @@
                                                 </a>
                                             @endif
                                         <a class="btn btn-warning btn-sm"
-                                           href="{{ route('admin.students.edit',$user->id) }}">
+                                           href="{{ route('admin.students.edit',['student' => $user->id, 'id' => $user->group_id]) }}">
                                             <span class="btn-label">
                                                 <i class="fa fa-pen"></i>
                                             </span>

@@ -142,7 +142,6 @@ class UserController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function edit(User $user)
-
     {
         $role=Auth::user()->role;
         $id = Auth::user()->id;
@@ -162,7 +161,8 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-
+        $gid = $request['id'];
+//        dd($request);
         $role = Auth::user()->role;
         $id = Auth::user()->id;
         $t=User::all()->where('email',$request->email);
@@ -197,12 +197,12 @@ class UserController extends Controller
         $user->update([
             'info_id'=>$user_info->id,
             'email' => $request->email,
-            'group_id' => $request->group_id,
+//            'group_id' => $request->group_id,
             'password' => Hash::make($request->password)
         ]);
 
         if($request->turi=='student'){
-            return redirect()->route('admin.students.index', ['id' => $request->group_id])
+            return redirect()->route('admin.students.index', ['id' => $gid])
                 ->with('success', 'Muvaffaqqiyatli yangilandi');
         }else{
             return redirect()->route('admin.users.index')

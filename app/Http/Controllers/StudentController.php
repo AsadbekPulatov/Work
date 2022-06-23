@@ -52,8 +52,10 @@ class StudentController
         return redirect(route('admin.students.index'))->with('success', 'Muvaffaqqiyatli yaratildi');
     }
 
-    public function edit($id)
-    {   $user=User::find($id);
+    public function edit(Request $request, $id)
+    {
+        $gid = $request['id'];
+        $user=User::find($id);
         $universities = University::all();
         $faculties = Fakultet::all();
         $groups = Group::all();
@@ -69,7 +71,8 @@ class StudentController
             'groups' => $groups,
             'current_group'=>$current_group,
             'current_faculty'=>$current_faculty,
-            'current_university'=>$current_university
+            'current_university'=>$current_university,
+            'id' => $gid,
         ]);
     }
 
